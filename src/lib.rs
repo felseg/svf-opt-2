@@ -28,21 +28,43 @@ impl SVF {
         }
     }
 
-    pub fn clear_state(&mut self) {
+    pub fn clear(&mut self) {
         self.ic1eq = 0.;
         self.ic2eq = 0.;
     }
 
-    pub fn process_sample(&mut self) -> f64 {
-        !unimplemented!()
+    fn process_sample(&mut self, v0: f64) -> f64 {
+        let v3 = v0 - self.ic2eq;
+        let v1 = self.a1 * self.ic1eq + self.a3 * v3;
+        let v2 = self.ic2eq + self.a2 * self.ic1eq + self.a3 * v3;
+        self.ic1eq = 2. * v1 - self.ic1eq;
+        self.ic2eq = 2. * v2 - self.ic2eq;
+        v2
     }
 
-    pub fn process_block(&mut self, samples: Vec<f64>) -> Vec<f64> {
-        !unimplemented!()
+    pub fn process_block(&mut self, samples: &mut Vec<f64>) {
+        for sample in samples.iter_mut() {
+            self.process_sample(*sample);
+        }
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn test_filter_bare() {}
+
+    #[test]
+    fn test_filter_res() {}
+
+    #[test]
+    fn test_clear() {}
+
+    #[test]
+    fn test_process_sample() {}
+
+    #[test]
+    fn test_process_block() {}
 }
