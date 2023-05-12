@@ -33,7 +33,7 @@ impl SVF {
         self.ic2eq = 0.;
     }
 
-    fn process_sample(&mut self, v0: f64) -> f64 {
+    pub fn process_sample(&mut self, v0: f64) -> f64 {
         let v3 = v0 - self.ic2eq;
         let v1 = self.a1 * self.ic1eq + self.a3 * v3;
         let v2 = self.ic2eq + self.a2 * self.ic1eq + self.a3 * v3;
