@@ -1,6 +1,6 @@
 use std::f64::consts::PI;
 
-struct SVF {
+pub struct SVF {
     ic1eq: f64,
     ic2eq: f64,
     g: f64,
